@@ -2,13 +2,13 @@
 const base = import.meta.env.BASE_URL;
 ---
 
-<footer class="fixed inset-x-0 bottom-0 border-t border-neutral-800 bg-neutral-950/80 backdrop-blur">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 text-xs text-neutral-400 flex flex-col sm:flex-row gap-2 sm:items-center justify-between">
+<footer class="fixed inset-x-0 bottom-0 border-t border-transparent bg-[#1d102bf0]">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 text-xs text-white flex flex-col sm:flex-row gap-2 sm:items-center justify-between">
     <p>&copy; {new Date().getFullYear()} Soul2Soul. All rights reserved.</p>
     <nav class="flex gap-4">
-      <a href={base} class="hover:text-neutral-900 dark:hover:text-neutral-200">Home</a>
-      <a href={`${base}about`} class="hover:text-neutral-900 dark:hover:text-neutral-200">About</a>
-      <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="hover:text-neutral-900 dark:hover:text-neutral-200">GitHub</a>
+      <a href={base} class="text-white hover:text-white/90">Home</a>
+      <a href={`${base}about`} class="text-white hover:text-white/90">About</a>
+      <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-white/90">GitHub</a>
     </nav>
   </div>
 </footer>
