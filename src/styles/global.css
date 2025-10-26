@@ -63,6 +63,11 @@ h1,h2,h3,h4,h5,h6 {
 /* Prose fine-tuning */
 .prose :where(p){
   margin-block: 1.1em;
+  font-weight: 400;
+}
+
+.prose :where(li){
+  font-weight: 400;
 }
 .prose :where(h1){
   font-family: inherit;
@@ -106,7 +111,7 @@ h1,h2,h3,h4,h5,h6 {
 
 /* Emphasis readability */
 .prose :where(b, strong){
-  font-weight: 700;
+  font-weight: 600;
   color: #fff;
   letter-spacing: normal;
 }
