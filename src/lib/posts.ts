@@ -29,4 +29,86 @@ export function formatDate(d: Date | string) {
   });
 }
 
+/**
+ * Build a short excerpt from the post's actual content (fallbacks to frontmatter description).
+ * Strips code, HTML/MDX tags, images, and markdown syntax, then trims to maxChars.
+ */
+export function getExcerpt(post: CollectionEntry<'posts'>, maxChars = 160) {
+  const raw = typeof (post as any).body === 'string' ? ((post as any).body as string) : '';
+  let text = raw || (post.data.description ?? '');
+  if (!text) return '';
+
+  // Remove code fences and inline code
+  text = text.replace(/```[\s\S]*?```/g, ' ');
+  text = text.replace(/`[^`]*`/g, ' ');
+
+  // Remove images
+  text = text.replace(/!\[[^\]]*\]\([^)]+\)/g, ' ');
+
+  // Convert links: [label](url) -> label, and reference links
+  text = text.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+  text = text.replace(/\[([^\]]+)\]\[[^\]]*\]/g, '$1');
+
+  // Remove HTML/MDX tags/components
+  text = text.replace(/<[^>]+>/g, ' ');
+
+  // Remove leading markdown tokens on lines (headings, quotes, lists)
+  text = text.replace(/^[#>*\-\s]+/gm, '');
+
+  // Normalize whitespace
+  text = text.replace(/\s+/g, ' ').trim();
+
+  if (text.length > maxChars) {
+    let cut = text.slice(0, maxChars).trim();
+    const lastSpace = cut.lastIndexOf(' ');
+    if (lastSpace > 60) cut = cut.slice(0, lastSpace);
+    text = cut + '…';
+  }
+
+  return text;
+}
+
+/**
+ * Build an HTML excerpt that preserves basic emphasis (bold/italic) from the first paragraph.
+ * - Escapes HTML to avoid injection, then rehydrates bold/italic markers into <strong>/<em>.
+ * - Strips code blocks/inline code, images, and converts links to their label.
+ * - Relies on CSS line-clamp in the list for visual truncation.
+ */
+export function getExcerptHtml(post: CollectionEntry<'posts'>) {
+  const raw = typeof (post as any).body === 'string' ? ((post as any).body as string) : (post.data.description ?? '');
+  if (!raw) return '';
+
+  // Take only the first paragraph (before a blank line)
+  let s = (raw.split(/\n{2,}/)[0] || raw);
+
+  // Remove code fences and inline code
+  s = s.replace(/```[\s\S]*?```/g, ' ');
+  s = s.replace(/`[^`]*`/g, ' ');
+
+  // Remove images
+  s = s.replace(/!\[[^\]]*\]\([^)]+\)/g, ' ');
+
+  // Convert links to label
+  s = s.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+  s = s.replace(/\[([^\]]+)\]\[[^\]]*\]/g, '$1');
+
+  // Remove any raw HTML/MDX tags/components
+  s = s.replace(/<[^>]+>/g, ' ');
+
+  // Escape HTML to ensure safety before inserting our own tags
+  s = s.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
+
+  // Preserve emphasis: bold first, then italic
+  s = s.replace(/(\*\*|__)(.+?)\1/g, '<strong>$2</strong>');
+  s = s.replace(/(\*|_)([^*_]+?)\1/g, '<em>$2</em>');
+
+  // Remove markdown list/quote/heading markers at line starts
+  s = s.replace(/^[#>*\-\s]+/gm, '');
+
+  // Normalize whitespace
+  s = s.replace(/\s+/g, ' ').trim();
+
+  return s;
+}
+
 export type PostEntry = CollectionEntry<'posts'>;
