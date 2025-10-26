@@ -11,6 +11,7 @@ const postCollection = defineCollection({
     tags: z.array(z.string()).default([]),
     coverImage: z.string().optional(),
     coverAlt: z.string().optional(),
+    slug: z.string().optional(),
     canonicalUrl: z.string().url().optional(),
     author: z.string().default('Admin')
   })
