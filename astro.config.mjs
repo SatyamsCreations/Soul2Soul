@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
+import remarkDash from './src/lib/remark-dash.js';
 import sitemap from '@astrojs/sitemap';
 
 // Configure deployment via env for GitHub Pages (keeps dev DX intact)
@@ -14,7 +15,7 @@ export default defineConfig({
   // Update via env vars in CI for GitHub Pages
   site: SITE,
   base: BASE,
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx({ remarkPlugins: [remarkDash] }), sitemap()],
   markdown: {
     syntaxHighlight: 'shiki'
   },

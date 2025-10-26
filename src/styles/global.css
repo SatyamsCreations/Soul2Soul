@@ -109,6 +109,15 @@ h1,h2,h3,h4,h5,h6 {
   font-size: 0.95em;
 }
 
+/* Larger em dash utility */
+.prose :where(.mdash){
+  display: inline-block;
+  transform: scaleX(2) scaleY(1.01);
+  transform-origin: center;
+  font-weight: 480;
+  margin: 0 0.3em;
+}
+
 /* Emphasis readability */
 .prose :where(b, strong){
   font-weight: 480;
