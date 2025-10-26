@@ -1,14 +1,26 @@
 {
-  "name": "bustling-bar",
+  "name": "soul2soul",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "postbuild": "pagefind --site dist || pagefind --source dist || true && mkdir -p dist/pagefind && cp -R node_modules/pagefind/pagefind-ui/* dist/pagefind/ || true",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.15.1"
+    "@fontsource/libre-baskerville": "^5.2.8",
+    "@fontsource/playfair-display": "^5.2.8",
+    "@tailwindcss/vite": "^4.1.16",
+    "astro": "^5.15.1",
+    "tailwindcss": "^4.1.16"
+  },
+  "devDependencies": {
+    "@astrojs/mdx": "^4.3.8",
+    "@astrojs/sitemap": "^3.6.0",
+    "@tailwindcss/typography": "^0.5.19",
+    "pagefind": "^1.4.0",
+    "reading-time": "^1.5.0"
   }
 }

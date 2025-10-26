@@ -1,0 +1,127 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Bundle Libre Baskerville via @fontsource (no external network at runtime) */
+@import "@fontsource/libre-baskerville/400.css";
+@import "@fontsource/libre-baskerville/700.css";
+
+@theme {
+  --color-brand-50:  #faf5ff;
+  --color-brand-100: #f3e8ff;
+  --color-brand-200: #e9d5ff;
+  --color-brand-300: #d8b4fe;
+  --color-brand-400: #c084fc;
+  --color-brand-500: #a855f7;
+  --color-brand-600: #9333ea;
+  --color-brand-700: #7e22ce;
+  --color-brand-800: #6b21a8;
+  --color-brand-900: #581c87;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  --font-serif: Georgia, Cambria, "Times New Roman", Times, "Noto Serif", "Liberation Serif", serif;
+  --font-display: "Libre Baskerville", "Charter", serif;
+}
+
+/* CSS variables and base theme */
+:root {
+  color-scheme: dark;
+}
+
+/* Prevent theme FOUC: we toggle the `dark` class on html */
+html {
+  min-height: 100%;
+}
+
+body {
+  @apply bg-[rgba(0,0,0,0.85)] text-neutral-100 antialiased;
+  font-family: var(--font-display);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-kerning: normal;
+}
+
+/* Prose defaults for article content */
+.prose {
+  @apply prose-neutral dark:prose-invert;
+  max-width: 75ch;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+/* Headings use Libre Baskerville/Charter display stack globally */
+h1,h2,h3,h4,h5,h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* UI elements keep the sans stack */
+:where(nav, .site-title, .btn, .tag, .chip, header, footer) {
+  font-family: var(--font-sans);
+  letter-spacing: -0.003em;
+}
+
+/* Prose fine-tuning */
+.prose :where(p){
+  margin-block: 1.1em;
+}
+.prose :where(h1){
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: rgba(41, 41, 41, 1);
+}
+.prose :where(h2){
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: rgba(41, 41, 41, 1);
+}
+.prose :where(h3,h4){
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.prose :where(a){
+  text-underline-offset: 3px;
+  text-decoration-thickness: 0.08em;
+  text-decoration-color: color-mix(in oklab, currentColor 50%, transparent);
+}
+.prose :where(a:hover){
+  text-decoration-color: currentColor;
+}
+.prose :where(blockquote){
+  font-style: italic;
+  border-left-color: color-mix(in oklab, currentColor 30%, transparent);
+}
+.prose :where(hr){
+  border-color: color-mix(in oklab, currentColor 20%, transparent);
+}
+.prose :where(code){
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.95em;
+}
+
+/* Dark mode overrides for display headings */
+.dark .prose :where(h1, h2){
+  color: #fff;
+}
+
+/* Utility for page-level display headings */
+.display-heading{
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: rgba(41, 41, 41, 1);
+}
+.dark .display-heading{
+  color: #fff;
+}
+
+/* Focus ring for accessibility */
+:where(a, button, input, textarea, select):focus-visible {
+  @apply outline-none ring-2 ring-offset-2 ring-brand-800 dark:ring-brand-300 ring-offset-white dark:ring-offset-neutral-950;
+}

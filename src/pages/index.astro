@@ -1,16 +1,35 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPosts, formatDate } from '../lib/posts';
 
+const posts = await getPosts();
+const base = import.meta.env.BASE_URL;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Soul2Soul — Home" description="A modern, fast, minimal blog built with Astro and Tailwind.">
+
+  <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+    <h2 class="text-xl font-semibold text-neutral-900 dark:text-white mb-6">Latest posts</h2>
+    <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        posts.map((post) => (
+          <li class="group rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors">
+            <a href={`${base}posts/${post.slug}/`} class="block p-5">
+              <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:underline">
+                {post.data.title}
+              </h3>
+              <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">
+                {post.data.description}
+              </p>
+              <div class="mt-4 flex items-center justify-between">
+                <time class="text-xs text-neutral-500 dark:text-neutral-400">
+                  {formatDate(post.data.date)}
+                </time>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

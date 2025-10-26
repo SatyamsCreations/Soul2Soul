@@ -1,0 +1,40 @@
+---
+const LABEL = 'Toggle theme';
+---
+
+<button
+  id="theme-toggle"
+  class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-neutral-200 bg-white text-neutral-800 hover:bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 dark:hover:bg-neutral-800"
+  aria-label={LABEL}
+  title={LABEL}
+>
+  <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden dark:inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M12 3v2m0 14v2m7.07-11.07l-1.41 1.41M6.34 17.66l-1.41 1.41M21 12h-2M5 12H3m14.66 5.66l-1.41-1.41M6.34 6.34 4.93 4.93M12 8a4 4 0 100 8 4 4 0 000-8z" />
+  </svg>
+  <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 dark:hidden" viewBox="0 0 24 24" fill="currentColor">
+    <path
+      d="M21.752 15.002A9 9 0 1111.998 2.25a.75.75 0 01.832.997A7.5 7.5 0 0019.5 16.17a.75.75 0 001.002.832 9.05 9.05 0 001.25-.5z" />
+  </svg>
+</button>
+
+<script is:inline>
+  const btn = document.getElementById('theme-toggle');
+  const doc = document.documentElement;
+
+  function setTheme(theme) {
+    const isDark = theme === 'dark';
+    doc.classList.toggle('dark', isDark);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {}
+  }
+
+  function toggleTheme() {
+    const isDark = doc.classList.contains('dark');
+    setTheme(isDark ? 'light' : 'dark');
+  }
+
+  // Ensure button reflects current theme on hydration
+  btn?.addEventListener('click', toggleTheme);
+</script>
