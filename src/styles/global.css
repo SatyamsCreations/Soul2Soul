@@ -97,9 +97,30 @@ h1,h2,h3,h4,h5,h6 {
 .prose :where(a:hover){
   text-decoration-color: currentColor;
 }
+/* Medium-like blockquote styling */
 .prose :where(blockquote){
   font-style: italic;
-  border-left-color: color-mix(in oklab, currentColor 30%, transparent);
+  font-size: 1.1em;
+  line-height: 1.7;
+  border-left: 4px solid color-mix(in oklab, currentColor 30%, transparent);
+  padding-left: 1rem;
+  margin: 1.5em 0;
+  color: color-mix(in oklab, currentColor 85%, transparent);
+}
+.prose :where(blockquote p){
+  margin: 0.4em 0;
+}
+.prose :where(blockquote p:first-child){
+  margin-top: 0;
+}
+.prose :where(blockquote p:last-child){
+  margin-bottom: 0;
+}
+.prose :where(blockquote cite, blockquote footer){
+  display: block;
+  margin-top: 0.6em;
+  font-size: 0.95em;
+  color: color-mix(in oklab, currentColor 65%, transparent);
 }
 .prose :where(hr){
   border-color: color-mix(in oklab, currentColor 20%, transparent);
