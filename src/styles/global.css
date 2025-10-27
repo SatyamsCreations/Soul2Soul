@@ -142,7 +142,7 @@ h1,h2,h3,h4,h5,h6 {
 /* Emphasis readability */
 .prose :where(b, strong){
   font-weight: 480;
-  color: #fff;
+  color: color-mix(in oklab, #fff 95%, transparent);
   letter-spacing: normal;
 }
 
