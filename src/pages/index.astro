@@ -16,7 +16,7 @@ const base = import.meta.env.BASE_URL;
     <ul class="grid grid-cols-1 gap-6 max-w-2xl mx-auto">
       {
         posts.map((post) => (
-          <li class="group relative rounded-xl border border-neutral-800 bg-[#0a0a0a] hover:border-neutral-700 hover:ring-1 hover:ring-brand-800/40 transition-colors overflow-hidden max-h-[200px]">
+          <li class="group relative rounded-xl border border-neutral-800 bg-[rgb(22_24_25)] hover:border-neutral-700 hover:ring-1 hover:ring-brand-800/40 transition-colors overflow-hidden max-h-[200px]">
             <a href={`${base}posts/${(post.data.slug ?? post.slug)}/`} class="flex flex-col sm:flex-row items-stretch gap-4">
               {post.data.coverImage && (
                 <img

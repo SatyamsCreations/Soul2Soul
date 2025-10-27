@@ -36,7 +36,7 @@ body {
   font-size: 20px;
   line-height: 1.6;
   color: #fff;
-  background-color: #0a0a0a;
+  background-color: rgb(22 24 25);
   -webkit-font-smoothing: antialiased; /* Safari/Chrome on macOS/iOS */
   text-rendering: optimizeLegibility;
   font-kerning: normal;
