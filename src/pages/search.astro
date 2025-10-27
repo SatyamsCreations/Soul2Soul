@@ -10,15 +10,67 @@ const base = import.meta.env.BASE_URL;
       Type to search posts. The search index is generated after building the site.
     </p>
 
-    <div id="search" class="mt-6">
+    <div id="search" class="mt-6" style="--pagefind-ui-primary: var(--color-brand-300); --pagefind-ui-text: #e5e7eb; --pagefind-ui-background: #0c0d0e; --pagefind-ui-border: #374151; --pagefind-ui-tag: #111827;">
       <div id="search-fallback" class="max-w-xl">
-        <input type="text" aria-label="Search" placeholder="Search posts..." class="w-full rounded-md border border-neutral-300 bg-white px-4 py-3 text-neutral-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-600" />
+        <input type="text" aria-label="Search" placeholder="Search posts..." class="w-full rounded-md border border-neutral-700 bg-neutral-900 px-4 py-3 text-neutral-100 placeholder:text-neutral-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-400" />
         <p class="mt-2 text-sm text-neutral-500">Loading search…</p>
       </div>
     </div>
 
     <!-- Pagefind UI assets (served from your built site at ${base}pagefind/) -->
     <link rel="stylesheet" href={base + "pagefind/pagefind-ui.css"} />
+    <style is:global>
+      /* Ensure our overrides load AFTER Pagefind CSS. Scope to Pagefind container to override :root defaults */
+      #search, #search .pagefind-ui {
+        --pagefind-ui-primary: var(--color-brand-300) !important;
+        --pagefind-ui-text: #e5e7eb !important;         /* neutral-200 */
+        --pagefind-ui-background: #0c0d0e !important;   /* close to site bg */
+        --pagefind-ui-border: #374151 !important;       /* neutral-700 */
+        --pagefind-ui-tag: #111827 !important;          /* neutral-900 */
+      }
+
+      #search .pagefind-ui__form,
+      #search .pagefind-ui__results,
+      #search .pagefind-ui__message {
+        background-color: var(--pagefind-ui-background) !important;
+        color: var(--pagefind-ui-text) !important;
+        border-color: var(--pagefind-ui-border) !important;
+      }
+
+      #search .pagefind-ui__search-input {
+        background-color: var(--pagefind-ui-background) !important;
+        color: var(--pagefind-ui-text) !important;
+        border-color: var(--pagefind-ui-border) !important;
+      }
+      #search .pagefind-ui__search-input::placeholder {
+        color: color-mix(in oklab, var(--pagefind-ui-text) 55%, transparent) !important;
+      }
+
+      #search .pagefind-ui__results-area,
+      #search .pagefind-ui__result {
+        background-color: var(--pagefind-ui-background) !important;
+        color: var(--pagefind-ui-text) !important;
+      }
+
+      #search .pagefind-ui__result-title a {
+        color: var(--pagefind-ui-primary);
+      }
+
+      #search .pagefind-ui__button {
+        background-color: color-mix(in oklab, var(--pagefind-ui-primary) 16%, transparent) !important;
+        color: var(--pagefind-ui-text) !important;
+        border-color: var(--pagefind-ui-border) !important;
+      }
+      #search .pagefind-ui__button:hover {
+        background-color: color-mix(in oklab, var(--pagefind-ui-primary) 26%, transparent) !important;
+      }
+
+      #search .pagefind-ui__result-excerpt mark,
+      #search .pagefind-ui__tag {
+        background-color: var(--pagefind-ui-tag) !important;
+        color: var(--pagefind-ui-text) !important;
+      }
+    </style>
     <script is:inline define:vars={{ base }}>
       // Bootstrap Pagefind UI; ensure visibility and correct base path for GitHub Pages.
       function setupPagefind() {
