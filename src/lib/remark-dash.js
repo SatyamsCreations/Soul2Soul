@@ -1,13 +1,13 @@
-
 /**
- * Remark plugin to replace '-' in text nodes with <Dash /> MDX elements.
+ * Remark plugin to replace double dashes `--` in text nodes with a <Dash /> MDX element.
+ * - Leaves single '-' characters untouched.
  * - Skips code/inlineCode/MDX ESM and expression nodes.
  * - Injects a single import for Dash at the top of the MDX file when used.
  */
 export default function remarkDash() {
   return (tree, file) => {
-    let dashUsed = false;
     let transformed = 0;
+    let dashUsed = false;
 
     // Detect existing Dash import
     let hasDashImport = false;
@@ -41,9 +41,10 @@ export default function remarkDash() {
 
       if (node.type === 'text') {
         const value = node.value;
-        if (typeof value !== 'string' || value.indexOf('-') === -1) return;
+        if (typeof value !== 'string' || value.indexOf('--') === -1) return;
 
-        const parts = value.split('-');
+        // Replace pairs of dashes with <Dash />, preserving single '-' as-is.
+        const parts = value.split('--');
         const newNodes = [];
 
         for (let i = 0; i < parts.length; i++) {
@@ -53,13 +54,12 @@ export default function remarkDash() {
           if (i !== parts.length - 1) {
             newNodes.push({
               type: 'mdxJsxTextElement',
-              name: 'span',
-              attributes: [
-                { type: 'mdxJsxAttribute', name: 'className', value: 'mdash' }
-              ],
-              children: [{ type: 'text', value: '-' }]
+              name: 'Dash',
+              attributes: [],
+              children: []
             });
             transformed++;
+            dashUsed = true;
           }
         }
 
@@ -81,9 +81,21 @@ export default function remarkDash() {
 
     visit(tree, null);
 
-    if (transformed > 0) {
-      console.log('[remark-dash] transformed', transformed, 'dashes in', (file && file.path) ? file.path : '(unknown file)');
+    // Inject a single import if Dash was used and not already imported.
+    if (dashUsed && !hasDashImport) {
+      tree.children.unshift({
+        type: 'mdxjsEsm',
+        value: "import Dash from '../../components/Dash.astro';"
+      });
     }
 
+    if (transformed > 0) {
+      console.log(
+        '[remark-dash] transformed',
+        transformed,
+        'double-dash sequences in',
+        (file && file.path) ? file.path : '(unknown file)'
+      );
+    }
   };
 }
