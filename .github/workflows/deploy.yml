@@ -35,7 +35,7 @@ jobs:
       - name: Build site
         working-directory: .
         env:
-          SITE: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+          SITE: https://${{ github.repository_owner }}.github.io
           BASE_URL: /${{ github.event.repository.name }}
         run: npm run build
 
@@ -45,6 +45,12 @@ jobs:
           npx pagefind --site dist || npx pagefind --source dist || true
           mkdir -p dist/pagefind
           cp -R node_modules/pagefind/pagefind-ui/* dist/pagefind/ || true
+
+      - name: Add .nojekyll
+        run: touch dist/.nojekyll
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
