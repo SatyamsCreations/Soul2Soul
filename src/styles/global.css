@@ -184,3 +184,63 @@ h1,h2,h3,h4,h5,h6 {
 .prose q::after {
   content: none !important;
 }
+
+/* Pagefind UI theming to match dark site */
+:root {
+  --pagefind-ui-primary: var(--color-brand-300);
+  --pagefind-ui-text: #e5e7eb; /* neutral-200 */
+  --pagefind-ui-background: #0c0d0e; /* close to site bg */
+  --pagefind-ui-border: #374151; /* neutral-700 */
+  --pagefind-ui-tag: #111827; /* neutral-900 */
+}
+
+.dark {
+  --pagefind-ui-primary: var(--color-brand-300);
+  --pagefind-ui-text: #e5e7eb; /* neutral-200 */
+  --pagefind-ui-background: #0c0d0e; /* close to site bg */
+  --pagefind-ui-border: #374151; /* neutral-700 */
+  --pagefind-ui-tag: #111827; /* neutral-900 */
+}
+
+/* Ensure Pagefind UI elements inherit our colors even if vars are ignored */
+#search .pagefind-ui__form,
+#search .pagefind-ui__results,
+#search .pagefind-ui__message {
+  background-color: var(--pagefind-ui-background);
+  color: var(--pagefind-ui-text);
+  border-color: var(--pagefind-ui-border);
+}
+
+#search .pagefind-ui__search-input {
+  background-color: var(--pagefind-ui-background);
+  color: var(--pagefind-ui-text);
+  border-color: var(--pagefind-ui-border);
+}
+#search .pagefind-ui__search-input::placeholder {
+  color: color-mix(in oklab, var(--pagefind-ui-text) 55%, transparent);
+}
+
+#search .pagefind-ui__results-area,
+#search .pagefind-ui__result {
+  background-color: var(--pagefind-ui-background);
+  color: var(--pagefind-ui-text);
+}
+
+#search .pagefind-ui__result-title a {
+  color: var(--pagefind-ui-primary);
+}
+
+#search .pagefind-ui__button {
+  background-color: color-mix(in oklab, var(--pagefind-ui-primary) 16%, transparent);
+  color: var(--pagefind-ui-text);
+  border-color: var(--pagefind-ui-border);
+}
+#search .pagefind-ui__button:hover {
+  background-color: color-mix(in oklab, var(--pagefind-ui-primary) 26%, transparent);
+}
+
+#search .pagefind-ui__result-excerpt mark,
+#search .pagefind-ui__tag {
+  background-color: var(--pagefind-ui-tag);
+  color: var(--pagefind-ui-text);
+}
