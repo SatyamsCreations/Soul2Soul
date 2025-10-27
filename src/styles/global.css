@@ -100,6 +100,7 @@ h1,h2,h3,h4,h5,h6 {
 /* Medium-like blockquote styling */
 .prose :where(blockquote){
   font-style: italic;
+  font-family: var(--font-serif);
   font-size: 1.1em;
   line-height: 1.7;
   border-left: 4px solid color-mix(in oklab, currentColor 30%, transparent);
@@ -128,6 +129,13 @@ h1,h2,h3,h4,h5,h6 {
 .prose :where(code){
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 0.95em;
+}
+
+/* Use a serif face for italicized inline elements across prose */
+.prose :where(em, i, cite){
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-synthesis: style;
 }
 
 
