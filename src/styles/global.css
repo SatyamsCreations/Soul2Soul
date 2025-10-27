@@ -148,3 +148,18 @@ h1,h2,h3,h4,h5,h6 {
 :where(a, button, input, textarea, select):focus-visible {
   @apply outline-none ring-2 ring-offset-2 ring-brand-800 dark:ring-brand-300 ring-offset-white dark:ring-offset-neutral-950;
 }
+
+/* Remove automatic quotes around blockquotes and q elements */
+.prose blockquote p:first-of-type::before,
+.prose blockquote p:last-of-type::after {
+  content: none !important;
+}
+
+.prose q {
+  quotes: none;
+}
+
+.prose q::before,
+.prose q::after {
+  content: none !important;
+}
