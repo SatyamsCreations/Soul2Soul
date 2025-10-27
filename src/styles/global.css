@@ -45,7 +45,7 @@ body {
 /* Prose defaults for article content */
 .prose {
   @apply prose-invert;
-  max-width: 75ch;
+  max-width: 80ch;
   font-size: 1.05em; /* post body size */
 }
 
