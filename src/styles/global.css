@@ -22,12 +22,20 @@
 
 /* CSS variables and base theme */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
+  /* Theme tokens for centralized section theming */
+  --surface: #ffffff;
+  --text: #111827; /* neutral-900 */
+  --muted-text: #4b5563; /* neutral-600 */
+  --border: #e5e7eb; /* neutral-200 */
 }
 
 /* Prevent theme FOUC: we toggle the `dark` class on html */
 html {
   min-height: 100%;
+}
+html.dark {
+  color-scheme: dark;
 }
 
 body {
@@ -35,18 +43,51 @@ body {
   font-family: var(--font-sans);
   font-size: 20px;
   line-height: 1.6;
-  color: #fff;
-  background-color: rgb(22 24 25);
+  color: #111827; /* neutral-900 */
+  background-color: #ffffff;
   -webkit-font-smoothing: antialiased; /* Safari/Chrome on macOS/iOS */
   text-rendering: optimizeLegibility;
   font-kerning: normal;
 }
 
+/* Section default surface and text (central control) */
+main > section {
+  background-color: var(--surface);
+  color: var(--text);
+}
+main > section :where(h1,h2,h3,h4,h5,h6) {
+  color: var(--text);
+}
+main > section :where(small, time) {
+  color: var(--muted-text);
+}
+main > section hr {
+  border-color: var(--border);
+}
+
+/* Article defaults for central control */
+main > article,
+article {
+  background-color: var(--surface);
+  color: var(--text);
+}
+article .prose {
+  color: var(--text);
+}
+article .prose :where(p, li) {
+  color: var(--text);
+}
+article hr {
+  border-color: var(--border);
+}
+
 /* Prose defaults for article content */
 .prose {
-  @apply prose-invert;
   max-width: 80ch;
   font-size: 1.05em; /* post body size */
+}
+.dark .prose {
+  @apply prose-invert;
 }
 
 /* Headings inherit the system UI stack globally */
@@ -74,14 +115,14 @@ h1,h2,h3,h4,h5,h6 {
   font-weight: 700;
   line-height: 1.2;
   font-size: 1.9em;
-  color: #fff;
+  color: #111827;
 }
 .prose :where(h2){
   font-family: inherit;
   font-weight: 700;
   line-height: 1.2;
   font-size: 1.5em;
-  color: #fff;
+  color: #111827;
 }
 .prose :where(h3,h4){
   font-family: inherit;
@@ -142,8 +183,11 @@ h1,h2,h3,h4,h5,h6 {
 /* Emphasis readability */
 .prose :where(b, strong){
   font-weight: 480;
-  color: color-mix(in oklab, #fff 95%, transparent);
+  color: #111827;
   letter-spacing: normal;
+}
+.dark .prose :where(b, strong){
+  color: #fff;
 }
 
 /* Dark mode overrides for display headings */
@@ -157,12 +201,16 @@ h1,h2,h3,h4,h5,h6 {
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.2;
+  color: #111827;
+}
+.dark .display-heading{
   color: #fff;
 }
 
-/* Dark mode body color */
+/* Dark mode body color and background */
 .dark body {
   color: #fff;
+  background-color: rgb(22 24 25);
 }
 
 /* Focus ring for accessibility */
@@ -185,16 +233,23 @@ h1,h2,h3,h4,h5,h6 {
   content: none !important;
 }
 
-/* Pagefind UI theming to match dark site */
+/* Pagefind UI theming */
 :root {
-  --pagefind-ui-primary: var(--color-brand-300);
-  --pagefind-ui-text: #e5e7eb; /* neutral-200 */
-  --pagefind-ui-background: #0c0d0e; /* close to site bg */
-  --pagefind-ui-border: #374151; /* neutral-700 */
-  --pagefind-ui-tag: #111827; /* neutral-900 */
+  --pagefind-ui-primary: var(--color-brand-600);
+  --pagefind-ui-text: #111827; /* neutral-900 */
+  --pagefind-ui-background: #ffffff;
+  --pagefind-ui-border: #e5e7eb; /* neutral-200 */
+  --pagefind-ui-tag: #f3f4f6; /* neutral-100 */
 }
 
 .dark {
+  /* Theme tokens for centralized section theming (dark mode) */
+  --surface: rgb(22 24 25);
+  --text: #e5e7eb; /* neutral-200 */
+  --muted-text: #9ca3af; /* neutral-400 */
+  --border: #374151; /* neutral-700 */
+
+  /* Pagefind UI (dark) */
   --pagefind-ui-primary: var(--color-brand-300);
   --pagefind-ui-text: #e5e7eb; /* neutral-200 */
   --pagefind-ui-background: #0c0d0e; /* close to site bg */
@@ -243,4 +298,65 @@ h1,h2,h3,h4,h5,h6 {
 #search .pagefind-ui__tag {
   background-color: var(--pagefind-ui-tag);
   color: var(--pagefind-ui-text);
+}
+
+/* Ensure post hero uses themed background regardless of utility ordering */
+.post-hero {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e5e7eb !important; /* neutral-200 */
+}
+/* Ensure readable text colors in hero on both themes */
+.post-hero,
+.post-hero a,
+.post-hero time,
+.post-hero span {
+  color: #111827 !important; /* neutral-900 for light */
+}
+.dark .post-hero {
+  background-color: rgb(22 24 25) !important;
+  border-bottom-color: transparent !important;
+}
+.dark .post-hero,
+.dark .post-hero a,
+.dark .post-hero time,
+.dark .post-hero span {
+  color: #e5e7eb !important; /* neutral-200-ish for dark */
+}
+/* Keep display heading bright in dark mode */
+.dark .post-hero .display-heading {
+  color: #ffffff !important;
+}
+
+/* Tag chip border theming */
+.tag-chip {
+  border-color: #111827 !important; /* dark border in light mode */
+}
+.dark .tag-chip {
+  border-color: rgba(255, 255, 255, 0.3) !important; /* light border in dark mode */
+}
+
+/* List card (home page post item) theming */
+.list-card {
+  background-color: #ffffff !important;
+}
+.dark .list-card {
+  background-color: rgb(22 24 25) !important;
+}
+.list-card h3 {
+  color: #111827 !important; /* neutral-900 */
+}
+.dark .list-card h3 {
+  color: #ffffff !important;
+}
+.list-card p {
+  color: #4b5563 !important; /* neutral-600 for excerpt */
+}
+.dark .list-card p {
+  color: #e5e7eb !important; /* neutral-200-ish */
+}
+.list-card time {
+  color: #6b7280 !important; /* neutral-500 */
+}
+.dark .list-card time {
+  color: #9ca3af !important; /* neutral-400 */
 }

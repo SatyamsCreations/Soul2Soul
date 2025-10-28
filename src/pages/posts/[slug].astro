@@ -17,20 +17,20 @@ const { Content, headings } = await post.render();
 ---
 
 <BaseLayout title={`${post.data.title} — Soul2Soul`} description={post.data.description}>
-  <section class="bg-[rgb(22_24_25)] border-b border-transparent">
+  <section class="post-hero bg-white border-b border-neutral-200 dark:bg-[rgb(22_24_25)] dark:border-transparent">
     <div class="mx-auto max-w-[52rem] px-4 sm:px-6 lg:px-8 pt-10 pb-5">
-      <a href={base} class="text-sm text-white hover:underline">&larr; Back to home</a>
+      <a href={base} class="text-sm text-neutral-900 dark:text-white hover:underline">&larr; Back to home</a>
       <h1 class="display-heading mt-3 text-4xl sm:text-5xl">
         {post.data.title}
       </h1>
-      <div class="mt-3 flex flex-wrap items-center gap-3 text-sm text-white/80">
+      <div class="mt-3 flex flex-wrap items-center gap-3 text-sm text-neutral-600 dark:text-white/80">
         <time datetime={new Date(post.data.date).toISOString()}>{formatDate(post.data.date)}</time>
         {post.data.tags?.length ? (
           <>
             <span aria-hidden="true">•</span>
             <div class="flex gap-1">
               {post.data.tags.map((t) => (
-                <a href={`${base}tags/${encodeURIComponent(t)}/`} class="inline-flex items-center rounded-full bg-transparent border border-white/30 px-2 py-0.5 text-[12px] text-white hover:underline">
+                <a href={`${base}tags/${encodeURIComponent(t)}/`} class="inline-flex items-center rounded-full bg-transparent border tag-chip px-2 py-0.5 text-[12px] text-neutral-900 dark:text-white hover:underline">
                   {t}
                 </a>
               ))}
@@ -41,17 +41,17 @@ const { Content, headings } = await post.render();
     </div>
   </section>
 
-  <article class="mx-auto max-w-[52rem] px-4 sm:px-6 lg:px-8 pt-5 pb-10">
+  <article class="mx-auto max-w-[52rem] px-4 sm:px-6 lg:px-8 pt-5 pb-10 bg-white dark:bg-[rgb(22_24_25)]">
     {post.data.coverImage && (
       <img
         src={post.data.coverImage.startsWith('/') ? `${base}${post.data.coverImage.slice(1)}` : `${base}${post.data.coverImage}`}
         alt={post.data.coverAlt ?? post.data.title}
-        class="mb-8 w-full rounded-xl border border-white/10 object-cover"
+        class="mb-8 w-full rounded-xl border border-neutral-200 dark:border-white/10 object-cover"
         loading="eager"
         decoding="async"
       />
     )}
-    <div class="prose mx-auto text-[1.2em]">
+    <div class="prose mx-auto text-[1.2em] text-neutral-900 dark:text-neutral-100">
       <Content />
     </div>
   </article>

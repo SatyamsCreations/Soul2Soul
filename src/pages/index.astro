@@ -10,29 +10,29 @@ const base = import.meta.env.BASE_URL;
 
   <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4 pb-12">
     <div class="mb-6">
-      <h2 class="display-heading text-3xl sm:text-4xl tracking-tight text-white mt-1">Recent writing</h2>
-      <hr class="mt-6 border-neutral-800" />
+      <h2 class="display-heading text-3xl sm:text-4xl tracking-tight text-neutral-900 dark:text-white mt-1">Recent writing</h2>
+      <hr class="mt-6 border-neutral-200 dark:border-neutral-800" />
     </div>
     <ul class="grid grid-cols-1 gap-6 max-w-2xl mx-auto">
       {
         posts.map((post) => (
-          <li class="group relative rounded-xl border border-neutral-800 bg-[rgb(22_24_25)] hover:border-neutral-700 hover:ring-1 hover:ring-brand-800/40 transition-colors overflow-hidden max-h-[200px]">
+          <li class="group list-card relative rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-[rgb(22_24_25)] hover:border-neutral-300 dark:hover:border-neutral-700 hover:ring-1 hover:ring-brand-600/30 dark:hover:ring-brand-800/40 transition-colors overflow-hidden max-h-[200px]">
             <a href={`${base}posts/${(post.data.slug ?? post.slug)}/`} class="flex flex-col sm:flex-row items-stretch gap-4">
               {post.data.coverImage && (
                 <img
                   src={post.data.coverImage.startsWith('/') ? `${base}${post.data.coverImage.slice(1)}` : `${base}${post.data.coverImage}`}
                   alt={post.data.coverAlt ?? post.data.title}
-                  class="w-full h-36 object-cover border-b border-neutral-800 sm:w-32 md:w-40 sm:h-full sm:border-b-0 sm:border-r"
+                  class="w-full h-36 object-cover border-b border-neutral-200 dark:border-neutral-800 sm:w-32 md:w-40 sm:h-full sm:border-b-0 sm:border-r"
                   loading="lazy"
                   decoding="async"
                 />
               )}
               <div class="p-4 md:p-5 flex-1 pr-24 pb-5 flex flex-col">
-              <h3 class="text-lg md:text-xl font-semibold text-white group-hover:underline line-clamp-2">
+              <h3 class="text-lg md:text-xl font-semibold text-neutral-900 dark:text-white group-hover:underline line-clamp-2">
                 {post.data.title}
               </h3>
-              <p class="mt-4 text-sm md:text-base text-white line-clamp-2" set:html={getExcerptHtml(post)}></p>
-              <time class="mt-auto self-end mb-[15px] mr-[10px] text-sm md:text-base font-normal text-white/60">
+              <p class="mt-4 text-sm md:text-base text-neutral-700 dark:text-white line-clamp-2" set:html={getExcerptHtml(post)}></p>
+              <time class="mt-auto self-end mb-[15px] mr-[10px] text-sm md:text-base font-normal text-neutral-500 dark:text-white/60">
                 {formatDate(post.data.date)}
               </time>
               </div>

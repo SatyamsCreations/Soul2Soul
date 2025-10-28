@@ -13,6 +13,19 @@ import Footer from '../components/Footer.astro';
 
 <html lang="en" class="scroll-smooth">
   <head>
+    <script is:inline>
+      (function() {
+        const doc = document.documentElement;
+        let theme;
+        try { theme = localStorage.getItem('theme'); } catch {}
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (theme === 'dark' || (theme === null && prefersDark)) {
+          doc.classList.add('dark');
+        } else {
+          doc.classList.remove('dark');
+        }
+      })();
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
