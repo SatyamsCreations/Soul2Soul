@@ -8,11 +8,7 @@ const base = import.meta.env.BASE_URL;
 
 <BaseLayout title="Soul2Soul — Home" description="A modern, fast, minimal blog built with Astro and Tailwind.">
 
-  <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4 pb-12">
-    <div class="mb-6">
-      <h2 class="display-heading text-3xl sm:text-4xl tracking-tight text-neutral-900 dark:text-white mt-1">Recent writing</h2>
-      <hr class="mt-6 border-neutral-200 dark:border-neutral-800" />
-    </div>
+  <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 pb-12">
     <ul class="grid grid-cols-1 gap-6 max-w-2xl mx-auto">
       {
         posts.map((post) => (
