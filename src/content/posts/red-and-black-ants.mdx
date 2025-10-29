@@ -38,7 +38,7 @@ Now, clearly something’s off -- the result is 2500 instead of 5050. How do we 
 - The sum starts at 0, and i starts at 1.  
 - Add i to the sum → 0 + 1 = 1.  
 - Then we increase i by 1 → i = 2.  
-- At the *end* of the loop, i++ runs automatically -- meaning i becomes 3 before the next round starts.
+- At the end of the loop, i++ runs automatically -- meaning i becomes 3 before the next round starts.
 
 Aha! We’ve been adding 1, 3, 5, 7… instead of every number. ‘i’ was jumping two steps at a time because we incremented it twice -- once in the loop body and once in the loop declaration. Now look what has happened, ***in this simple act of observing, the solution has revealed itself*** -- remove one of the increments, and everything falls into place.
 
