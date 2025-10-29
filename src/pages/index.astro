@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getPosts, formatDate, getExcerptHtml } from '../lib/posts';
+import { getPosts, formatDate, getExcerptHtml, getReadingTime } from '../lib/posts';
 
 const posts = await getPosts();
 const base = import.meta.env.BASE_URL;
@@ -28,9 +28,12 @@ const base = import.meta.env.BASE_URL;
                 {post.data.title}
               </h3>
               <p class="mt-4 text-sm md:text-base text-neutral-700 dark:text-white line-clamp-2" set:html={getExcerptHtml(post)}></p>
-              <time class="mt-auto self-end mb-[15px] mr-[10px] text-sm md:text-base font-normal text-neutral-500 dark:text-white/60">
-                {formatDate(post.data.date)}
-              </time>
+              <div class="mt-auto flex items-end justify-between">
+                <span class="read-time mb-[15px] text-sm md:text-base font-normal">{getReadingTime(post).text}</span>
+                <time class="mb-[15px] mr-[10px] text-sm md:text-base font-normal">
+                  {formatDate(post.data.date)}
+                </time>
+              </div>
               </div>
             </a>
           </li>

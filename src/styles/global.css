@@ -354,9 +354,7 @@ h1,h2,h3,h4,h5,h6 {
 .dark .list-card p {
   color: #e5e7eb !important; /* neutral-200-ish */
 }
-.list-card time {
-  color: #6b7280 !important; /* neutral-500 */
-}
-.dark .list-card time {
-  color: #9ca3af !important; /* neutral-400 */
+.list-card time,
+.list-card .read-time {
+  color: var(--muted-text) !important;
 }
