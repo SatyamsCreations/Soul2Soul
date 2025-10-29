@@ -78,37 +78,48 @@ export function getExcerptHtml(post: CollectionEntry<'posts'>) {
   const raw = typeof (post as any).body === 'string' ? ((post as any).body as string) : (post.data.description ?? '');
   if (!raw) return '';
 
-  // Take only the first paragraph (before a blank line)
-  let s = (raw.split(/\n{2,}/)[0] || raw);
+  // Remove fenced code blocks first so they don't pollute paragraphs
+  const pre = raw.replace(/```[\s\S]*?```/g, ' ');
 
-  // Remove code fences and inline code
-  s = s.replace(/```[\s\S]*?```/g, ' ');
-  s = s.replace(/`[^`]*`/g, ' ');
+  // Take the first two non-empty paragraphs (before blank lines)
+  const paras = pre.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean).slice(0, 2);
 
-  // Remove images
-  s = s.replace(/!\[[^\]]*\]\([^)]+\)/g, ' ');
+  const cleaned = paras.map((p) => {
+    let s = p;
 
-  // Convert links to label
-  s = s.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
-  s = s.replace(/\[([^\]]+)\]\[[^\]]*\]/g, '$1');
+    // Remove inline code
+    s = s.replace(/`[^`]*`/g, ' ');
 
-  // Remove any raw HTML/MDX tags/components
-  s = s.replace(/<[^>]+>/g, ' ');
+    // Remove images
+    s = s.replace(/!\[[^\]]*\]\([^)]+\)/g, ' ');
 
-  // Escape HTML to ensure safety before inserting our own tags
-  s = s.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
+    // Convert links to label (inline + reference)
+    s = s.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+    s = s.replace(/\[([^\]]+)\]\[[^\]]*\]/g, '$1');
 
-  // Preserve emphasis: bold first, then italic
-  s = s.replace(/(\*\*|__)(.+?)\1/g, '<strong>$2</strong>');
-  s = s.replace(/(\*|_)([^*_]+?)\1/g, '<em>$2</em>');
+    // Remove any raw HTML/MDX tags/components
+    s = s.replace(/<[^>]+>/g, ' ');
 
-  // Remove markdown list/quote/heading markers at line starts
-  s = s.replace(/^[#>*\-\s]+/gm, '');
+    // Remove markdown list/quote/heading markers at line starts
+    s = s.replace(/^[#>*\-\s]+/gm, '');
 
-  // Normalize whitespace
-  s = s.replace(/\s+/g, ' ').trim();
+    // Escape HTML to ensure safety before inserting our own tags
+    s = s.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
 
-  return s;
+    // Preserve emphasis: bold first, then italic
+    s = s.replace(/(\*\*|__)(.+?)\1/g, '<strong>$2</strong>');
+    s = s.replace(/(\*|_)([^*_]+?)\1/g, '<em>$2</em>');
+
+    // Normalize whitespace within the paragraph
+    s = s.replace(/\s+/g, ' ').trim();
+
+    return s;
+  });
+
+  // Join paragraphs with an explicit line break so the second paragraph starts on the next line
+  const out = cleaned.join(' <br /> ');
+
+  return out;
 }
 
 /**
