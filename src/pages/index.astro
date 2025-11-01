@@ -15,7 +15,7 @@ const base = import.meta.env.BASE_URL;
           <li class="group list-card relative rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-[rgb(22_24_25)] hover:border-neutral-300 dark:hover:border-neutral-700 hover:ring-1 hover:ring-brand-600/30 dark:hover:ring-brand-800/40 transition-colors overflow-hidden sm:max-h-[200px]">
             <a href={`${base}posts/${(post.data.slug ?? post.slug)}/`} class="flex flex-col sm:flex-row items-stretch gap-4">
               {post.data.coverImage && (
-                <div class="w-full h-36 sm:w-32 md:w-40 sm:h-[200px] overflow-hidden flex-shrink-0 border-b border-neutral-200 dark:border-neutral-800 sm:border-b-0 sm:border-r">
+                <div class="w-full h-52 sm:w-32 md:w-40 sm:h-[200px] overflow-hidden flex-shrink-0 border-b border-neutral-200 dark:border-neutral-800 sm:border-b-0 sm:border-r">
                   <img
                     src={post.data.coverImage.startsWith('/') ? `${base}${post.data.coverImage.slice(1)}` : `${base}${post.data.coverImage}`}
                     alt={post.data.coverAlt ?? post.data.title}
