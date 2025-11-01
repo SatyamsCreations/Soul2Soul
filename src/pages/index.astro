@@ -25,11 +25,11 @@ const base = import.meta.env.BASE_URL;
                   />
                 </div>
               )}
-              <div class="p-4 md:p-5 flex-1 w-full sm:pr-24 pb-5 flex flex-col">
+              <div class="px-3 pb-3 pt-0 md:p-5 flex-1 w-full sm:pr-24 flex flex-col">
               <h3 class="text-lg md:text-xl font-semibold text-neutral-900 dark:text-white group-hover:underline line-clamp-2">
                 {post.data.title}
               </h3>
-              <p class="mt-4 text-sm md:text-base text-neutral-700 dark:text-white line-clamp-2" set:html={getExcerptHtml(post)}></p>
+              <p class="mt-2 md:mt-4 text-sm md:text-base text-neutral-700 dark:text-white line-clamp-2" set:html={getExcerptHtml(post)}></p>
               <div class="mt-auto flex items-end justify-between">
                 <span class="read-time mt-2 mb-[5px] text-sm md:text-base font-normal">{getReadingTime(post).text}</span>
                 <time class="mt-2 mb-[5px] mr-[10px] text-sm md:text-base font-normal">
