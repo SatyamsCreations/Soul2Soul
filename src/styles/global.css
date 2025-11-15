@@ -45,6 +45,10 @@ body {
   line-height: 1.6;
   color: #111827; /* neutral-900 */
   background-color: #ffffff;
+  background-image: linear-gradient(to right top, #e36868, #e46c8c, #da78ae, #c686ca, #ac96dd, #a397e8, #9699f4, #859bff, #948dff, #af79ff, #d05bff, #f317ff);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
   -webkit-font-smoothing: antialiased; /* Safari/Chrome on macOS/iOS */
   text-rendering: optimizeLegibility;
   font-kerning: normal;
@@ -52,7 +56,7 @@ body {
 
 /* Section default surface and text (central control) */
 main > section {
-  background-color: var(--surface);
+  background-color: transparent;
   color: var(--text);
 }
 main > section :where(h1,h2,h3,h4,h5,h6) {
@@ -211,6 +215,17 @@ h1,h2,h3,h4,h5,h6 {
 .dark body {
   color: #fff;
   background-color: rgb(22 24 25);
+  background-image: linear-gradient(
+    to right top,
+    #861919,
+    #682f6c,
+    #362166,
+    #0b0f6d,
+    #00167c,
+    hsl(264, 100%, 26%),
+    #6b0095,
+    #b400be
+  );
 }
 
 /* Focus ring for accessibility */
