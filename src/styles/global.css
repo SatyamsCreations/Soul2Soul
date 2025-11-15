@@ -234,18 +234,18 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 /* Remove automatic quotes around blockquotes and q elements */
-.prose blockquote p:first-of-type::before,
-.prose blockquote p:last-of-type::after {
-  content: none !important;
+:root .prose blockquote p:first-of-type::before,
+:root .prose blockquote p:last-of-type::after {
+  content: none;
 }
 
 .prose q {
   quotes: none;
 }
 
-.prose q::before,
-.prose q::after {
-  content: none !important;
+:root .prose q::before,
+:root .prose q::after {
+  content: none;
 }
 
 /* Pagefind UI theming */
@@ -316,60 +316,59 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 /* Ensure post hero uses themed background regardless of utility ordering */
-.post-hero {
-  background-color: transparent !important; /* allow page gradient to show */
-  border-bottom: 1px solid #e5e7eb !important; /* neutral-200 */
+body .post-hero {
+  background-color: transparent; /* allow page gradient to show */
 }
 /* Ensure readable text colors in hero on both themes */
-.post-hero,
-.post-hero a,
-.post-hero time,
-.post-hero span {
-  color: #111827 !important; /* neutral-900 for light */
+body .post-hero,
+body .post-hero a,
+body .post-hero time,
+body .post-hero span {
+  color: var(--text); /* neutral-900 for light */
 }
-.dark .post-hero {
-  background-color: transparent !important; /* allow page gradient to show */
-  border-bottom-color: transparent !important;
+.dark body .post-hero {
+  background-color: transparent; /* allow page gradient to show */
+  border-bottom-color: transparent;
 }
-.dark .post-hero,
-.dark .post-hero a,
-.dark .post-hero time,
-.dark .post-hero span {
-  color: #e5e7eb !important; /* neutral-200-ish for dark */
+.dark body .post-hero,
+.dark body .post-hero a,
+.dark body .post-hero time,
+.dark body .post-hero span {
+  color: var(--text); /* neutral-200-ish for dark */
 }
 /* Keep display heading bright in dark mode */
-.dark .post-hero .display-heading {
-  color: #ffffff !important;
+.dark body .post-hero .display-heading {
+  color: #ffffff;
 }
 
 /* Tag chip border theming */
-.tag-chip {
-  border-color: #111827 !important; /* dark border in light mode */
+body .tag-chip {
+  border-color: #111827; /* dark border in light mode */
 }
-.dark .tag-chip {
-  border-color: rgba(255, 255, 255, 0.3) !important; /* light border in dark mode */
+.dark body .tag-chip {
+  border-color: rgba(255, 255, 255, 0.3); /* light border in dark mode */
 }
 
 /* List card (home page post item) theming */
-.list-card {
-  background-color: #ffffff !important;
+body .list-card {
+  background-color: var(--surface);
 }
-.dark .list-card {
-  background-color: rgb(22 24 25) !important;
+.dark body .list-card {
+  background-color: var(--surface);
 }
-.list-card h3 {
-  color: #111827 !important; /* neutral-900 */
+body .list-card h3 {
+  color: var(--text); /* neutral-900 */
 }
-.dark .list-card h3 {
-  color: #ffffff !important;
+.dark body .list-card h3 {
+  color: #ffffff;
 }
-.list-card p {
-  color: #4b5563 !important; /* neutral-600 for excerpt */
+body .list-card p {
+  color: var(--muted-text); /* neutral-600 for excerpt */
 }
-.dark .list-card p {
-  color: #e5e7eb !important; /* neutral-200-ish */
+.dark body .list-card p {
+  color: var(--text); /* neutral-200-ish */
 }
-.list-card time,
-.list-card .read-time {
-  color: var(--muted-text) !important;
+body .list-card time,
+body .list-card .read-time {
+  color: var(--muted-text);
 }
