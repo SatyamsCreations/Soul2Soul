@@ -317,7 +317,7 @@ h1,h2,h3,h4,h5,h6 {
 
 /* Ensure post hero uses themed background regardless of utility ordering */
 .post-hero {
-  background-color: #ffffff !important;
+  background-color: transparent !important; /* allow page gradient to show */
   border-bottom: 1px solid #e5e7eb !important; /* neutral-200 */
 }
 /* Ensure readable text colors in hero on both themes */
@@ -328,7 +328,7 @@ h1,h2,h3,h4,h5,h6 {
   color: #111827 !important; /* neutral-900 for light */
 }
 .dark .post-hero {
-  background-color: rgb(22 24 25) !important;
+  background-color: transparent !important; /* allow page gradient to show */
   border-bottom-color: transparent !important;
 }
 .dark .post-hero,
